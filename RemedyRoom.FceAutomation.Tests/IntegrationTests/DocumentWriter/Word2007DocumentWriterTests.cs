@@ -14,11 +14,11 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
         private const string DocTemplatePath = @"C:\Projects\RemedyRoom.FceAutomation\fce_partial_template.docx";
         private const string DocOutputPath = @"C:\Projects\RemedyRoom.FceAutomation\fce_partial_report.docx";
 
-        #region AppendTable
+        #region AppendRowsToTable
 
         [TestMethod]
         // ReSharper disable InconsistentNaming
-        public void AppendTable_WhenContentControlFoundAndContentControlContainsTable_WriteTabularDataToTable()
+        public void AppendRowsToTable_WhenContentControlFoundAndContentControlContainsTable_WriteTabularDataToTable()
         // ReSharper restore InconsistentNaming
         {
             //Arrange
@@ -28,7 +28,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
             //Act
             using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
             {
-                writer.AppendTable(contentControlTagName, tabularTestData);
+                writer.AppendRowsToTable(contentControlTagName, tabularTestData);
             }
 
             //Assert
@@ -65,7 +65,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         // ReSharper disable InconsistentNaming
-        public void AppendTable_WhenContentControlFoundAndContentControlDoenstContainTable_ThrowsException()
+        public void AppendRowsToTable_WhenContentControlFoundAndContentControlDoenstContainTable_ThrowsException()
         // ReSharper restore InconsistentNaming
         {
             //Arrange
@@ -77,7 +77,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
             {
                 using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
                 {
-                    writer.AppendTable(contentControlTagName, tabularTestData);
+                    writer.AppendRowsToTable(contentControlTagName, tabularTestData);
                 }
             }
             catch (Exception ex)
@@ -91,7 +91,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
         [TestMethod]
         [ExpectedException(typeof(InvalidOperationException))]
         // ReSharper disable InconsistentNaming
-        public void AppendTable_WhenContentControlNotFound_ThrowsException()
+        public void AppendRowsToTable_WhenContentControlNotFound_ThrowsException()
         // ReSharper restore InconsistentNaming
         {
             //Arrange
@@ -103,7 +103,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
             {
                 using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
                 {
-                    writer.AppendTable(contentControlTagName, tabularTestData);
+                    writer.AppendRowsToTable(contentControlTagName, tabularTestData);
                 }
             }
             catch (Exception ex)

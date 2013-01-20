@@ -22,24 +22,24 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
 
             _document = WordprocessingDocument.Open(documentOutputPath, true, settings);
         }
-
-        public void WriteTextToBookmark()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void AppendTable(string contentControlTag, string[,] tabularData)
+        
+        public void AppendRowsToTable(string contentControlTag, string[,] tabularData)
         {
             var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
             AppendRowsToTable(tabularData, contentControlContainingTable);
         }
         
-        public void AppendChartData(string contentControlTag, string[,] tabularData)
+        public void AppendColumnsToChartData(string contentControlTag, string[,] tabularData)
         {
             var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
-            AppendRowsToChart(tabularData, contentControlContainingTable);
+            AppendColumnsToChartData(tabularData, contentControlContainingTable);
         }
-        
+
+        public void InsertText(string contentControlTag, string text)
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void Dispose()
         {
             _document.Close();
@@ -80,7 +80,7 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
             }
         }
 
-        private static void AppendRowsToChart(string[,] tabularData, SdtBlock contentControlContainingTable)
+        private static void AppendColumnsToChartData(string[,] tabularData, SdtBlock contentControlContainingTable)
         {
             
         }

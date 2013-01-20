@@ -2,8 +2,8 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
 {
     public interface IWordDocumentWriter
     {
-        void WriteTextToBookmark();
-        void AppendTable(string contentControlTag, string[,] tabularData);
-        void AppendChartData(string contentControlTag, string[,] tabularData);
+        void InsertText(string contentControlTag, string text);
+        void AppendRowsToTable(string contentControlTag, string[,] tabularData);
+        void AppendColumnsToChartData(string contentControlTag, string[,] tabularData);
     }
 }
