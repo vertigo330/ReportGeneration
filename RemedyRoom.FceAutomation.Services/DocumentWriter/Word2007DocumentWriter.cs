@@ -34,7 +34,22 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
             var contentControlContainingTable = contentControls.Single(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
             
             if (contentControlContainingTable == null) return;
+            AppendRowsToTable(tabularData, contentControlContainingTable);
+        }
+        
+        public void WriteChartToBookmark()
+        {
+            throw new System.NotImplementedException();
+        }
+        
+        public void Dispose()
+        {
+            _document.Close();
+            _document.Dispose();
+        }
 
+        private static void AppendRowsToTable(string[,] tabularData, OpenXmlElement contentControlContainingTable)
+        {
             var targetTable = contentControlContainingTable.Descendants<Table>().Single();
             for (var rowIndex = 0; rowIndex < tabularData.GetLength(0); rowIndex++)
             {
@@ -51,17 +66,6 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
                 }
                 targetTable.AppendChild(tableRow);
             }
-        }
-
-        public void WriteChartToBookmark()
-        {
-            throw new System.NotImplementedException();
-        }
-        
-        public void Dispose()
-        {
-            _document.Close();
-            _document.Dispose();
         }
     }
 }
