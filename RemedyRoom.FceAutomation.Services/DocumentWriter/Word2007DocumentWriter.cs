@@ -30,24 +30,31 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
 
         public void AppendTable(string contentControlTag, string[,] tabularData)
         {
-            var contentControls = _document.MainDocumentPart.Document.Body.Descendants<SdtBlock>();
-            var contentControlContainingTable = contentControls.FirstOrDefault(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
-            
-            if (contentControlContainingTable == null)
-                throw new InvalidOperationException("The content control specified does not exist");
-
+            var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
             AppendRowsToTable(tabularData, contentControlContainingTable);
         }
         
-        public void WriteChartToBookmark()
+        public void AppendChartData(string contentControlTag, string[,] tabularData)
         {
-            throw new System.NotImplementedException();
+            var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
+            AppendRowsToChart(tabularData, contentControlContainingTable);
         }
         
         public void Dispose()
         {
             _document.Close();
             _document.Dispose();
+        }
+
+        private SdtBlock GetContentControlByTagName(string contentControlTag)
+        {
+            var contentControls = _document.MainDocumentPart.Document.Body.Descendants<SdtBlock>();
+            var contentControlContainingTable = contentControls.FirstOrDefault(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
+
+            if (contentControlContainingTable == null)
+                throw new InvalidOperationException("The content control specified does not exist");
+
+            return contentControlContainingTable;
         }
 
         private static void AppendRowsToTable(string[,] tabularData, OpenXmlElement contentControlContainingTable)
@@ -71,6 +78,11 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
                 }
                 targetTable.AppendChild(tableRow);
             }
+        }
+
+        private static void AppendRowsToChart(string[,] tabularData, SdtBlock contentControlContainingTable)
+        {
+            
         }
     }
 }
