@@ -26,13 +26,13 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
         public void AppendRowsToTable(string contentControlTag, string[,] tabularData)
         {
             var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
-            AppendRowsToTable(tabularData, contentControlContainingTable);
+            AppendRowsToTableInContentControl(tabularData, contentControlContainingTable);
         }
         
         public void AppendColumnsToChartData(string contentControlTag, string[,] tabularData)
         {
             var contentControlContainingTable = GetContentControlByTagName(contentControlTag);
-            AppendColumnsToChartData(tabularData, contentControlContainingTable);
+            AppendColumnsToChartDataInContentControl(tabularData, contentControlContainingTable);
         }
 
         public void InsertText(string contentControlTag, string text)
@@ -49,15 +49,15 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
         private SdtBlock GetContentControlByTagName(string contentControlTag)
         {
             var contentControls = _document.MainDocumentPart.Document.Body.Descendants<SdtBlock>();
-            var contentControlContainingTable = contentControls.FirstOrDefault(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
+            var contentControl = contentControls.FirstOrDefault(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
 
-            if (contentControlContainingTable == null)
+            if (contentControl == null)
                 throw new InvalidOperationException("The content control specified does not exist");
 
-            return contentControlContainingTable;
+            return contentControl;
         }
 
-        private static void AppendRowsToTable(string[,] tabularData, OpenXmlElement contentControlContainingTable)
+        private static void AppendRowsToTableInContentControl(string[,] tabularData, OpenXmlElement contentControlContainingTable)
         {
             if(!contentControlContainingTable.Descendants<Table>().Any())
                 throw new InvalidOperationException("The content control specified does not contain a table to append to");
@@ -80,7 +80,7 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
             }
         }
 
-        private static void AppendColumnsToChartData(string[,] tabularData, SdtBlock contentControlContainingTable)
+        private static void AppendColumnsToChartDataInContentControl(string[,] tabularData, SdtBlock contentControlContainingTable)
         {
             
         }
