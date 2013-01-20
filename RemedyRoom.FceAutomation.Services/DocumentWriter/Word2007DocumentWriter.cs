@@ -31,9 +31,11 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
         public void AppendTable(string contentControlTag, string[,] tabularData)
         {
             var contentControls = _document.MainDocumentPart.Document.Body.Descendants<SdtBlock>();
-            var contentControlContainingTable = contentControls.Single(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
+            var contentControlContainingTable = contentControls.FirstOrDefault(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTag);
             
-            if (contentControlContainingTable == null) return;
+            if (contentControlContainingTable == null)
+                throw new InvalidOperationException("The content control specified does not exist");
+
             AppendRowsToTable(tabularData, contentControlContainingTable);
         }
         
@@ -50,6 +52,9 @@ namespace RemedyRoom.FceAutomation.Services.DocumentWriter
 
         private static void AppendRowsToTable(string[,] tabularData, OpenXmlElement contentControlContainingTable)
         {
+            if(!contentControlContainingTable.Descendants<Table>().Any())
+                throw new InvalidOperationException("The content control specified does not contain a table to append to");
+            
             var targetTable = contentControlContainingTable.Descendants<Table>().Single();
             for (var rowIndex = 0; rowIndex < tabularData.GetLength(0); rowIndex++)
             {

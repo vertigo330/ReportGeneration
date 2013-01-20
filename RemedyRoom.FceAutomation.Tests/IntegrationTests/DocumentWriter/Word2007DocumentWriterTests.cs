@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
@@ -13,6 +14,8 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
         private const string DocTemplatePath = @"C:\Projects\RemedyRoom.FceAutomation\fce_partial_template.docx";
         private const string DocOutputPath = @"C:\Projects\RemedyRoom.FceAutomation\fce_partial_report.docx";
 
+        #region AppendTable
+
         [TestMethod]
         // ReSharper disable InconsistentNaming
         public void AppendTable_WhenContentControlFoundAndContentControlContainsTable_WriteTabularDataToTable()
@@ -20,7 +23,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
         {
             //Arrange
             const string contentControlTagName = "ClericalProductivityTable";
-            string[,] tabularTestData = { { "a1", "a2", "a3", "a4", "a5" }, { "b1", "b2", "b3", "b4", "b5" }, { "c1", "c2", "c3", "c4", "c5" } };
+            var tabularTestData = GetTestTabularData();
 
             //Act
             using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
@@ -34,13 +37,14 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
                 var rowIndex = 0;
                 var colIndex = 0;
                 var contentControls = documentUnderTest.MainDocumentPart.Document.Body.Descendants<SdtBlock>();
-                var contentControlContainingTable = contentControls.Single(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTagName);
+                var contentControlContainingTable =
+                    contentControls.Single(cc => cc.SdtProperties.GetFirstChild<Tag>().Val == contentControlTagName);
                 var targetTable = contentControlContainingTable.Descendants<Table>().Single();
 
                 //Has the correct number of rows
                 Assert.IsTrue(targetTable.Elements<TableRow>().Skip(1).Count() == tabularTestData.GetLength(0));
-                
-                foreach(var tableRow in  targetTable.Elements<TableRow>().Skip(1))  //Skip the header
+
+                foreach (var tableRow in targetTable.Elements<TableRow>().Skip(1)) //Skip the header
                 {
                     foreach (var tableCell in tableRow.Descendants<TableCell>())
                     {
@@ -58,9 +62,73 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
             }
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        // ReSharper disable InconsistentNaming
+        public void AppendTable_WhenContentControlFoundAndContentControlDoenstContainTable_ThrowsException()
+        // ReSharper restore InconsistentNaming
+        {
+            //Arrange
+            const string contentControlTagName = "EmptyContentControl";
+            var tabularTestData = GetTestTabularData();
+
+            //Act
+            try
+            {
+                using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
+                {
+                    writer.AppendTable(contentControlTagName, tabularTestData);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Assert
+                Assert.AreEqual(ex.Message, "The content control specified does not contain a table to append to");
+                throw;
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        // ReSharper disable InconsistentNaming
+        public void AppendTable_WhenContentControlNotFound_ThrowsException()
+        // ReSharper restore InconsistentNaming
+        {
+            //Arrange
+            const string contentControlTagName = "NonExistantContentControl";
+            var tabularTestData = GetTestTabularData();
+
+            //Act
+            try
+            {
+                using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
+                {
+                    writer.AppendTable(contentControlTagName, tabularTestData);
+                }
+            }
+            catch (Exception ex)
+            {
+                //Assert
+                Assert.AreEqual(ex.Message, "The content control specified does not exist");
+                throw;
+            }
+        }
+
+        #endregion
+
         #region helper methods
 
-        public WordprocessingDocument GetTestWordProcessingDocument(string documenPath)
+        private string[,] GetTestTabularData()
+        {
+            return new[,]
+                {
+                    {"a1", "a2", "a3", "a4", "a5"}, 
+                    {"b1", "b2", "b3", "b4", "b5"},
+                    {"c1", "c2", "c3", "c4", "c5"}
+                };
+        }
+
+        private WordprocessingDocument GetTestWordProcessingDocument(string documenPath)
         {
             var settings = new OpenSettings
                                {
