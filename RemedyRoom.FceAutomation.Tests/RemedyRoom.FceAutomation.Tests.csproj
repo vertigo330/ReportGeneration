@@ -51,6 +51,12 @@
   <ItemGroup>
     <Folder Include="UnitTests\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RemedyRoom.FceAutomation.Services\RemedyRoom.FceAutomation.Services.csproj">
+      <Project>{FE108A0F-BDC1-4992-9C33-E3B7297DCC6F}</Project>
+      <Name>RemedyRoom.FceAutomation.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

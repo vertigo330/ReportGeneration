@@ -7,8 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RemedyRoom.FceAutomation.Te
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{510A0273-781B-4D0C-BF2F-836E47DBC4DA}"
 	ProjectSection(SolutionItems) = preProject
+		fce_partial_template.docx = fce_partial_template.docx
 		fce_report_full.doc = fce_report_full.doc
-		fce_report_partial.docx = fce_report_partial.docx
 	EndProjectSection
 EndProject
 Global

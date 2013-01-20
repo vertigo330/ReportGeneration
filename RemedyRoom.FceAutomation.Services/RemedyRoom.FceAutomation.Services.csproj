@@ -47,16 +47,16 @@
     <Compile Include="DomainObjects\Reports\Report.cs" />
     <Compile Include="DomainObjects\WorkSamples\ThurstonWorkSample.cs" />
     <Compile Include="DomainObjects\WorkSamples\WorkSampleBase.cs" />
+    <Compile Include="Extractor\IExtractor.cs" />
+    <Compile Include="Extractor\PdfExtractor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReportGenerator\IReportGenerator.cs" />
-    <Compile Include="ReportGenerator\WordDocumentReportGenerator.cs" />
+    <Compile Include="ReportGenerator\ReportGenerator.cs" />
     <Compile Include="DocumentWriter\IWordDocumentWriter.cs" />
     <Compile Include="DocumentWriter\Word2007DocumentWriter.cs" />
     <Compile Include="DocumentWriter\Word2010DocumentWriter.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SourceDataParser\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

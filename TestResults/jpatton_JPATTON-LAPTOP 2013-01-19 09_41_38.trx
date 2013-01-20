@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="b4adb329-a435-48b5-a960-b5b87c98306e" name="jpatton@JPATTON-LAPTOP 2013-01-19 09:41:38" runUser="jpatton-laptop\jpatton" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Default Test Settings" id="7d5a4342-0a55-41c7-8fe2-12e854335486">
+    <Deployment runDeploymentRoot="jpatton_JPATTON-LAPTOP 2013-01-19 09_41_38">
+      <DeploymentItem filename="C:\Projects\RemedyRoom.FceAutomation\RemedyRoom.FceAutomation.Services\bin\Debug\RemedyRoom.FceAutomation.Services.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2013-01-19T09:41:38.5104472+02:00" queuing="2013-01-19T09:41:42.9376789+02:00" start="2013-01-19T09:41:43.3966285+02:00" finish="2013-01-19T09:41:55.5405807+02:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" error="0" failed="0" timeout="0" aborted="0" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="1" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="JPATTON-LAPTOP" outcome="Error" timestamp="2013-01-19T09:41:55.5305790+02:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="UpdateTableWithData_WhenBookmarkFoundAndBookmarkContainsTable_WriteTabularDataToTable" storage="c:\projects\remedyroom.fceautomation\remedyroom.fceautomation.tests\bin\debug\remedyroom.fceautomation.tests.dll" id="e7e9b2cf-b58f-0929-8f9d-f43cac6727e9">
+      <Execution id="4ea6f4a0-6e40-4a67-8876-6eab7e2dfa30" />
+      <TestMethod codeBase="C:/Projects/RemedyRoom.FceAutomation/RemedyRoom.FceAutomation.Tests/bin/Debug/RemedyRoom.FceAutomation.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter.Word2007DocumentWriterTests, RemedyRoom.FceAutomation.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="UpdateTableWithData_WhenBookmarkFoundAndBookmarkContainsTable_WriteTabularDataToTable" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="e7e9b2cf-b58f-0929-8f9d-f43cac6727e9" executionId="4ea6f4a0-6e40-4a67-8876-6eab7e2dfa30" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="4ea6f4a0-6e40-4a67-8876-6eab7e2dfa30" testId="e7e9b2cf-b58f-0929-8f9d-f43cac6727e9" testName="UpdateTableWithData_WhenBookmarkFoundAndBookmarkContainsTable_WriteTabularDataToTable" computerName="JPATTON-LAPTOP" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="NotExecuted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="4ea6f4a0-6e40-4a67-8876-6eab7e2dfa30">
+    </UnitTestResult>
+  </Results>
+</TestRun>

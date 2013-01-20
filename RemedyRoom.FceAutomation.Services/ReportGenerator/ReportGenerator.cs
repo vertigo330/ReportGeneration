@@ -4,7 +4,7 @@ using RemedyRoom.FceAutomation.Services.DomainObjects.Reports;
 
 namespace RemedyRoom.FceAutomation.Services.ReportGenerator
 {
-    public class WordDocumentReportGenerator : IReportGenerator
+    public class ReportGenerator : IReportGenerator
     {
         public Report GenerateReport(XmlDocument source, IDictionary<string, string> options)
         {
