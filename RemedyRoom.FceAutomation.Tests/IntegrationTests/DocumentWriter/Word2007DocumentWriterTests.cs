@@ -116,9 +116,31 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
 
         #endregion
 
+        #region AppendColumnsToChartData
+
+        [TestMethod]
+        // ReSharper disable InconsistentNaming
+        public void AppendColumnsToChartData_WhenContentControlFoundAndContentControlContainsChart_WriteTabularDataToChartSource()
+        // ReSharper restore InconsistentNaming
+        {
+            //Arrange
+            const string contentControlTagName = "ClericalProductivityChart";
+            var testChartData = GetTestChartData();
+
+            //Act
+            using (var writer = new Word2007DocumentWriter(DocTemplatePath, DocOutputPath))
+            {
+                writer.AppendColumnsToChartData(contentControlTagName, testChartData);
+            }
+
+            //Assert
+        }
+
+        #endregion
+        
         #region helper methods
 
-        private string[,] GetTestTabularData()
+        private static string[,] GetTestTabularData()
         {
             return new[,]
                 {
@@ -128,7 +150,7 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
                 };
         }
 
-        private WordprocessingDocument GetTestWordProcessingDocument(string documenPath)
+        private static WordprocessingDocument GetTestWordProcessingDocument(string documenPath)
         {
             var settings = new OpenSettings
                                {
@@ -137,6 +159,15 @@ namespace RemedyRoom.FceAutomation.Tests.IntegrationTests.DocumentWriter
                                        MarkupCompatibilityProcessMode.ProcessAllParts, FileFormatVersions.Office2007)
                                };
             return WordprocessingDocument.Open(DocOutputPath, true, settings);
+        }
+
+        private static string[,] GetTestChartData()
+        {
+            return new[,]{
+                            {"Thurston1", "Thurston2", "Thurston3", "Thurston4", "Alphabetizing", "Mail Sort","Non-Standard Typing", "WASP 2", "WASP 3", "Payroll", "Patient Info"},
+                            {"3", "2", "1", "0", "3", "2", "0", "1", "2", "3", "4"},
+                            {"1", "1", "2", "2", "3", "3", "4", "3", "2", "1", "0"}
+                        };
         }
 
         #endregion
